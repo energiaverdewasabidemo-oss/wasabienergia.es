@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import App from './App.tsx';
 import { getConsent } from './lib/consent';
 import { initTracking } from './lib/tracking';
@@ -12,24 +13,28 @@ if (getConsent() === 'accepted') {
   initTracking();
 }
 
-// Initialize app
 const initApp = () => {
-  
   const rootElement = document.getElementById('root');
   if (!rootElement) throw new Error('Root element not found');
-  
-  const root = createRoot(rootElement);
-  
-  root.render(
+
+  const app = (
     <StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <HelmetProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </HelmetProvider>
     </StrictMode>
   );
+
+  // Si react-snap prerendereó el HTML estático, hidratamos en vez de remontar.
+  if (rootElement.hasChildNodes()) {
+    hydrateRoot(rootElement, app);
+  } else {
+    createRoot(rootElement).render(app);
+  }
 };
 
-// Start the app
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initApp);
 } else {

@@ -23,6 +23,51 @@
     <meta name="twitter:description" content="Energía 100% renovable, sin trampas, sin robots. Hasta 120€ al año por cambiarte." />
     <meta name="twitter:image" content="/wasabi-logo-main.png" />
 
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://wasabienergia.es/#organization",
+          "name": "Energía Verde Wasabi",
+          "alternateName": "Wasabi Energía",
+          "url": "https://wasabienergia.es",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://wasabienergia.es/wasabi-logo-main.png"
+          },
+          "vatID": "ESB42709378",
+          "taxID": "B42709378",
+          "telephone": "+34621508300",
+          "email": "info@wasabienergia.es",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Polígono Campollano, Calle A, 7",
+            "addressLocality": "Albacete",
+            "addressRegion": "Albacete",
+            "postalCode": "02006",
+            "addressCountry": "ES"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "ES"
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://wasabienergia.es/#website",
+          "url": "https://wasabienergia.es",
+          "name": "Energía Verde Wasabi",
+          "description": "Energía 100% renovable sin trampas",
+          "publisher": { "@id": "https://wasabienergia.es/#organization" },
+          "inLanguage": "es-ES"
+        }
+      ]
+    }
+    </script>
+
     <!-- Performance Optimizations -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">

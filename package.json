@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "node scripts/postbuild.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
@@ -18,6 +19,7 @@
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.48.2",
     "react-router-dom": "^7.13.1"
   },

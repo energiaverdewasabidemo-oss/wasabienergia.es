@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /afiliados/
+
+Sitemap: https://wasabienergia.es/sitemap.xml
