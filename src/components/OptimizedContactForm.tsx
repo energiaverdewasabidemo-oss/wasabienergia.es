@@ -92,48 +92,65 @@ ${data.message || 'Sin mensaje adicional'}
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     setSubmitError(null);
-    
+
     try {
-      // Enviar por WhatsApp
-      const whatsappSent = sendToWhatsApp(data);
-      
-      if (whatsappSent) {
-        // También crear enlace mailto como backup
-        const emailBody = `
-Nueva consulta desde la web de Wasabi Energía:
+      // 1. eventId para deduplicar Pixel↔CAPI en Meta
+      const eventId =
+        typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
-Nombre: ${data.name}
-Teléfono: ${data.phone}
-Email: ${data.email || 'No proporcionado'}
-Mensaje: ${data.message || 'No proporcionado'}
-Tipo de suministro: ${supplyTypes.join(', ') || 'No especificado'}
-Tipo de cliente: ${data.clientType === 'residencial' ? 'Residencial' : 'Pyme'}
-
----
-Enviado desde wasabienergia.es
-        `.trim();
-
-        const mailtoLink = `mailto:info@wasabitrader.com?subject=Nueva consulta desde la web - ${data.name}&body=${encodeURIComponent(emailBody)}`;
-        
-        // Abrir email como backup (en una nueva pestaña para no interferir con WhatsApp)
-        setTimeout(() => {
-          window.open(mailtoLink, '_blank');
-        }, 1000);
-        
-        // Mostrar mensaje de éxito
-        setIsSubmitted(true);
-        reset();
-        setSupplyTypes([]);
-        
-        // Reset después de 10 segundos
-        setTimeout(() => {
-          setIsSubmitted(false);
-        }, 10000);
+      // 2. Meta Pixel Lead event (solo si el usuario aceptó cookies → fbq cargado por tracking.ts)
+      const fbq = (window as unknown as { fbq?: (...args: unknown[]) => void }).fbq;
+      if (typeof fbq === 'function') {
+        fbq(
+          'track',
+          'Lead',
+          {
+            content_name: 'Energy Lead',
+            content_category: data.clientType || 'residencial',
+            currency: 'EUR',
+            value: 0,
+          },
+          { eventID: eventId }
+        );
       }
-      
+
+      // 3. POST a la función server-side (Supabase INSERT + Meta CAPI Lead en paralelo).
+      // Fire-and-forget: no bloquea la conversión del usuario si tracking falla.
+      const fbp = document.cookie.match(/_fbp=([^;]+)/)?.[1] || null;
+      const fbc = document.cookie.match(/_fbc=([^;]+)/)?.[1] || null;
+
+      fetch('/.netlify/functions/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: data.name,
+          telefono: data.phone,
+          email: data.email || null,
+          supplyType: supplyTypes,
+          clientType: data.clientType,
+          eventId,
+          fbp,
+          fbc,
+          eventSourceUrl: window.location.href,
+          userAgent: navigator.userAgent,
+        }),
+      }).catch((err) => {
+        console.error('lead tracking failed:', err);
+      });
+
+      // 4. Abrir WhatsApp (flujo comercial principal — el cliente termina la conversión ahí)
+      sendToWhatsApp(data);
+
+      // 5. UI de éxito
+      setIsSubmitted(true);
+      reset();
+      setSupplyTypes([]);
+      setTimeout(() => setIsSubmitted(false), 10000);
     } catch (error) {
       console.error('Error enviando consulta:', error);
-      setSubmitError('Hubo un error al procesar el formulario. Por favor, inténtalo de nuevo o contacta directamente a info@wasabitrader.com');
+      setSubmitError('Hubo un error al procesar el formulario. Inténtalo de nuevo o escribe a info@wasabitrader.com');
     } finally {
       setIsSubmitting(false);
     }
