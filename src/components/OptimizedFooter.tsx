@@ -68,10 +68,10 @@ const OptimizedFooter = () => {
                   <div className="flex-1 min-w-0">
                     <p className="text-gray-300 text-sm mb-1">Email:</p>
                     <a 
-                      href="mailto:info@wasabitrader.com" 
+                      href="mailto:info@wasabienergia.es" 
                       className="text-gray-200 hover:text-[#A8FF00] transition-colors text-base font-medium break-all leading-relaxed"
                     >
-                      info@wasabitrader.com
+                      info@wasabienergia.es
                     </a>
                   </div>
                 </div>

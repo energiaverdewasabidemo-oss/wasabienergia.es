@@ -31,10 +31,10 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-[#A8FF00]" />
                 <a 
-                  href="mailto:info@wasabitrader.com" 
+                  href="mailto:info@wasabienergia.es" 
                   className="text-gray-300 hover:text-[#A8FF00] transition-colors text-sm"
                 >
-                  info@wasabitrader.com
+                  info@wasabienergia.es
                 </a>
               </div>
               <div className="flex items-center space-x-3">

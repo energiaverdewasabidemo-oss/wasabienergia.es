@@ -150,7 +150,7 @@ ${data.message || 'Sin mensaje adicional'}
       setTimeout(() => setIsSubmitted(false), 10000);
     } catch (error) {
       console.error('Error enviando consulta:', error);
-      setSubmitError('Hubo un error al procesar el formulario. Inténtalo de nuevo o escribe a info@wasabitrader.com');
+      setSubmitError('Hubo un error al procesar el formulario. Inténtalo de nuevo o escribe a info@wasabienergia.es');
     } finally {
       setIsSubmitting(false);
     }
@@ -290,9 +290,9 @@ ${data.message || 'Sin mensaje adicional'}
                 <div className="text-sm text-gray-600 bg-gray-100 p-6 rounded-xl border border-gray-300">
                   <p className="font-semibold mb-3 text-gray-800">📞 Otros métodos de contacto:</p>
                   <div className="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-6">
-                    <a href="mailto:info@wasabitrader.com" className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors">
+                    <a href="mailto:info@wasabienergia.es" className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors">
                       <Mail className="h-5 w-5" />
-                      <span>info@wasabitrader.com</span>
+                      <span>info@wasabienergia.es</span>
                     </a>
                     <a href="https://wa.me/+34621508300" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-green-600 hover:text-green-700 transition-colors">
                       <MessageCircle className="h-5 w-5" />

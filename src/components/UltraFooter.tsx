@@ -128,10 +128,10 @@ const UltraFooter = () => {
                   <Mail className="h-5 w-5 text-[#A8FF00]" />
                 </motion.div>
                 <a 
-                  href="mailto:info@wasabitrader.com" 
+                  href="mailto:info@wasabienergia.es" 
                   className="text-gray-300 hover:text-[#A8FF00] transition-colors"
                 >
-                  info@wasabitrader.com
+                  info@wasabienergia.es
                 </a>
               </motion.div>
               
