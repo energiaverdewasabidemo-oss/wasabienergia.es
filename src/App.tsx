@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import OptimizedHeader from './components/OptimizedHeader';
 import OptimizedHero from './components/OptimizedHero';
+import CookieBanner from './components/CookieBanner';
 import SubirFactura from './pages/SubirFactura';
 import AfiliadosLogin from './pages/afiliados/Login';
 import AfiliadosRegistro from './pages/afiliados/Registro';
@@ -62,6 +63,7 @@ function App() {
         <Route path="/afiliados/login" element={<AfiliadosLogin />} />
         <Route path="/afiliados/registro" element={<AfiliadosRegistro />} />
       </Routes>
+      <CookieBanner />
     </AfiliadosAuthProvider>
   );
 }

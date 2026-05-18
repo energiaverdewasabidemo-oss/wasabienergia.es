@@ -1,14 +1,6 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MDR8HB33');</script>
-    <!-- End Google Tag Manager -->
-
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/wasabi-logo-main.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -82,16 +74,7 @@
     <title>Energía Verde Wasabi - Energía Renovable Sin Trampas</title>
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MDR8HB33"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    <!-- Meta Pixel noscript -->
-    <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=2145914676207230&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel noscript -->
+    <!-- GTM y Meta Pixel se cargan condicionalmente desde src/lib/tracking.ts tras consent -->
 
     <!-- Loading screen for better UX -->
     <div id="loading-screen" class="loading-screen">
@@ -120,24 +103,5 @@
     </script>
     
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-  document.addEventListener("click", function (e) {
-    const link = e.target.closest("a");
-    if (!link) return;
-    const href = link.href || "";
-    if (!href.startsWith("tel:") && !href.startsWith("https://wa.me") && !href.includes("whatsapp")) return;
-
-    fetch("/.netlify/functions/meta-contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        eventSourceUrl: window.location.href,
-        clientUserAgent: navigator.userAgent,
-        fbp: document.cookie.match(/_fbp=([^;]+)/)?.[1] || null,
-        fbc: document.cookie.match(/_fbc=([^;]+)/)?.[1] || null,
-      }),
-    });
-  });
-</script>
   </body>
 </html>
