@@ -7,7 +7,10 @@ declare global {
 }
 
 const GTM_ID = 'GTM-MDR8HB33';
-export const PIXEL_ID = '2145914676207230';
+// Pixel real activo (dataset "Energía Verde 2026" en Events Manager).
+// El ID 2145914676207230 que figuraba en index.html era legacy y nunca recibió eventos.
+// Sirve también a luzia.pro (multi-dominio en la misma cuenta Wasabi).
+export const PIXEL_ID = '2030026287870740';
 
 let loaded = false;
 
