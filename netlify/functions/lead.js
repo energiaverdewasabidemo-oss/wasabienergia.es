@@ -8,10 +8,10 @@
 // falla — no bloquea la conversión del usuario por un fallo de tracking.
 //
 // Env vars requeridas (Netlify dashboard → Site settings → Environment variables):
-//   META_PIXEL_ID      = 2145914676207230
-//   META_ACCESS_TOKEN  = (Meta Conversions API token)
-//   SUPABASE_URL       = https://<ref>.supabase.co
-//   SUPABASE_ANON_KEY  = (anon key)
+//   META_PIXEL_ID              = (Pixel real del dataset Energía Verde 2026)
+//   META_ACCESS_TOKEN          = (Meta Conversions API token)
+//   SUPABASE_URL               = https://<ref>.supabase.co
+//   SUPABASE_SERVICE_ROLE_KEY  = (service_role JWT; bypassea RLS para inserts validados server-side)
 
 const crypto = require('crypto');
 
@@ -61,21 +61,23 @@ exports.handler = async function (event) {
     null;
 
   const SUPABASE_URL = process.env.SUPABASE_URL;
-  const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
+  const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
   const PIXEL_ID = process.env.META_PIXEL_ID;
   const ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
 
   // ----- 1. Supabase INSERT en tabla `leads` -----
+  // Usamos service_role (server-side) para bypassear RLS — la validación de campos
+  // y rate limiting se hacen aquí en la función, no en la BD.
   const supaPromise = (async () => {
-    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    if (!SUPABASE_URL || !SUPABASE_KEY) {
       return { ok: false, reason: 'supabase_env_missing' };
     }
     try {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
         method: 'POST',
         headers: {
-          apikey: SUPABASE_ANON_KEY,
-          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
           'Content-Type': 'application/json',
           Prefer: 'return=representation',
         },
