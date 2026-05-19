@@ -1,8 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 
+// Proyecto Supabase de Wasabi Holding (kufwpysbkzsiilkmzyka, eu-west-1).
+// Antes apuntaba a blgvdjpduwquydcjwrdi pero ese proyecto fue eliminado
+// y dejó toda la app de afiliados+facturas+leads sin BD desde tiempo atrás.
+// Restaurado y migraciones aplicadas el 2026-05-18.
 export const supabase = createClient(
-  'https://blgvdjpduwquydcjwrdi.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJsZ3ZkanBkdXdxdXlkY2p3cmRpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1NjMwNjQsImV4cCI6MjA4OTEzOTA2NH0.qcTNtuLFDaSZKG0iz_yjD2e7biz8yW-iltVjIVobztY'
+  'https://kufwpysbkzsiilkmzyka.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1ZndweXNia3pzaWlsa216eWthIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxOTM4OTgsImV4cCI6MjA5MDc2OTg5OH0.NUEiiO-1DHpk9Jn1Pnx5GFmbNzvU76XSDI4vKHiF4P0'
 );
 
 export interface Lead {
